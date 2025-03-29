@@ -55,6 +55,7 @@
         const bestScoreElement = document.getElementById('best-score');
         const pauseMenu = document.getElementById('pause-menu');
         const countdownElement = document.getElementById('countdown');
+        const startScreen = document.getElementById('start-screen');
 
         // Game assets
         const images = { bird: new Image(), pipeTop: new Image(), pipeBottom: new Image(), background: new Image() };
@@ -106,7 +107,7 @@
         }
 
         // Load images
-        images.bird.src = 'https://iili.io/3uPmhZJ.md.png';
+        images.bird.src = 'https://iili.io/3AJqgyv.png';
         images.pipeTop.src = 'https://iili.io/3u4luRI.md.png';
         images.pipeBottom.src = 'https://iili.io/3u4luRI.md.png';
         images.background.src = 'https://iili.io/3u4j6yG.md.png';
@@ -146,7 +147,7 @@
             const container = document.getElementById('game-container');
             canvas.width = container.clientWidth;
             canvas.height = container.clientHeight;
-            gameState.bird.y = canvas.height * 0.65; // Changed to 65% from top (35% above bottom)
+            gameState.bird.y = canvas.height * 0.65;
         }
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
@@ -201,12 +202,12 @@
         }
 
         function startGame() {
-            document.getElementById('start-screen').style.display = 'none';
+            startScreen.style.display = 'none';
             countdownElement.style.display = 'block';
             gameState.isPlaying = true;
             gameState.isPaused = false;
             gameState.birdCanFall = false;
-            gameState.bird.y = canvas.height * 0.65; // Changed to 65% from top (35% above bottom)
+            gameState.bird.y = canvas.height * 0.65;
             gameState.bird.velocity = 0;
             gameState.pipes = [];
             gameState.score = 0;
@@ -332,6 +333,8 @@
                     new Bird().flap();
                 } else if (gameOverScreen.style.display === 'block') {
                     startGame();
+                } else if (startScreen.style.display !== 'none') {
+                    startGame();
                 }
             }
             if (e.code === 'Escape') {
@@ -339,7 +342,13 @@
                 pauseMenu.style.display = gameState.isPaused ? 'block' : 'none';
             }
         });
-        canvas.addEventListener('click', () => new Bird().flap());
+        canvas.addEventListener('click', () => {
+            if (gameState.isPlaying) {
+                new Bird().flap();
+            } else if (gameOverScreen.style.display === 'block') {
+                startGame();
+            }
+        });
         document.addEventListener('click', () => { 
             if (audioContext.state === 'suspended') audioContext.resume();
         }, { once: true });
