@@ -9,8 +9,16 @@
             background: #4ec0ca; font-family: 'Arial Rounded MT Bold', Arial, sans-serif; touch-action: manipulation; overflow: hidden; }
         #game-container { position: relative; width: 800px; height: 1000px; max-width: 95%; max-height: 95vh; }
         #game-canvas { width: 100%; height: 100%; }
-        #score-display { position: absolute; top: 20px; left: 50%; transform: translateX(-50%); color: white;
-            font-size: 60px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); z-index: 2; }
+        #score-display { 
+            position: absolute; 
+            top: 20px; 
+            right: 20px; 
+            color: white;
+            font-size: 60px; 
+            font-weight: bold; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5); 
+            z-index: 2;
+        }
         #game-over { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.9);
             padding: 30px; border-radius: 20px; color: white; text-align: center; display: none; z-index: 3;
             box-shadow: 0 0 30px rgba(0,0,0,0.5); }
@@ -31,7 +39,7 @@
             <h1>Flappy Bird Pro</h1>
             <button onclick="startGame()">Start Game</button>
         </div>
-        <div id="score-display">0</div>
+        <div id="score-display">Score: 0</div>
         <div id="countdown">3</div>
         <div id="pause-menu">
             <button onclick="resumeGame()">Resume</button>
@@ -69,7 +77,7 @@
                 velocity: 0, 
                 gravity: 0.5, 
                 jump: -12,
-                size: 90,
+                size: 100, // Changed from 90 to 100
                 rotation: 0 
             },
             pipes: [], 
@@ -212,7 +220,7 @@
             gameState.pipes = [];
             gameState.score = 0;
             gameState.particles = [];
-            scoreDisplay.textContent = '0';
+            scoreDisplay.textContent = 'Score: 0';
             gameOverScreen.style.display = 'none';
             pauseMenu.style.display = 'none';
 
@@ -299,7 +307,7 @@
                 if (!pipe.scored && pipe.x + gameState.pipeWidth < gameState.bird.x) {
                     pipe.scored = true;
                     gameState.score++;
-                    scoreDisplay.textContent = gameState.score;
+                    scoreDisplay.textContent = `Score: ${gameState.score}`;
                     playPoint();
                 }
             });
