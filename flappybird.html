@@ -146,7 +146,7 @@
             const container = document.getElementById('game-container');
             canvas.width = container.clientWidth;
             canvas.height = container.clientHeight;
-            gameState.bird.y = canvas.height / 2;
+            gameState.bird.y = canvas.height * 0.65; // Changed to 65% from top (35% above bottom)
         }
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
@@ -206,7 +206,7 @@
             gameState.isPlaying = true;
             gameState.isPaused = false;
             gameState.birdCanFall = false;
-            gameState.bird.y = canvas.height / 2;
+            gameState.bird.y = canvas.height * 0.65; // Changed to 65% from top (35% above bottom)
             gameState.bird.velocity = 0;
             gameState.pipes = [];
             gameState.score = 0;
@@ -327,7 +327,13 @@
 
         // Controls
         document.addEventListener('keydown', (e) => { 
-            if (e.code === 'Space') new Bird().flap();
+            if (e.code === 'Space') {
+                if (gameState.isPlaying) {
+                    new Bird().flap();
+                } else if (gameOverScreen.style.display === 'block') {
+                    startGame();
+                }
+            }
             if (e.code === 'Escape') {
                 gameState.isPaused = !gameState.isPaused;
                 pauseMenu.style.display = gameState.isPaused ? 'block' : 'none';
