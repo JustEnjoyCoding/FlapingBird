@@ -151,39 +151,43 @@
         images.bird.src = 'https://iili.io/3A0Rz42.gif';
         images.pipeTop.src = 'https://iili.io/3u4luRI.md.png';
         images.pipeBottom.src = 'https://iili.io/3u4luRI.md.png';
-        images.background.src = 'https://iili.io/3u4j6yG.md.png';
+        images.background.src = 'https://iili.io/3AWlMtR.png';
 
-        images.layer1.src = 'https://iili.io/3u4j6yG.jpg';
-        images.layer2.src = 'https://iili.io/3AEWcbf.jpg';
-        images.layer3.src = 'https://iili.io/3AEjhJt.jpg';
-        images.layer4.src = 'https://iili.io/3AEwAQf.jpg';
+        images.layer1.src = 'https://iili.io/3AWlMtR.png';
+        images.layer2.src = 'https://iili.io/3AWlMtR.png';
+        images.layer3.src = 'https://iili.io/3AWlMtR.png';
+        images.layer4.src = 'https://iili.io/3AWlMtR.png';
+
+
+        
+        // images.layer1.src = 'https://iili.io/3u4j6yG.jpg';
+        // images.layer2.src = 'https://iili.io/3AEWcbf.jpg';
+        // images.layer3.src = 'https://iili.io/3AEjhJt.jpg';
+        // images.layer4.src = 'https://iili.io/3AEwAQf.jpg';
 
         // Pipe generator
         class Pipe {
-            static lastUpperLonger = false;
+            // static lastUpperLonger = false;
 
             constructor() {
                 this.x = canvas.width;
                 const minGap = 200;
                 const maxGap = 300;
                 this.pipeGap = minGap + Math.random() * (maxGap - minGap);
-                const minPipeHeight = 50;
-                const maxPipeHeight = canvas.height - this.pipeGap - minPipeHeight;
+                const maxGapY = canvas.height - this.pipeGap;
+                const gapY = Math.random() * maxGapY;
                 
-                Pipe.lastUpperLonger = !Pipe.lastUpperLonger;
-                
-                if(Pipe.lastUpperLonger) {
-                    this.topHeight = minPipeHeight + Math.random() * (maxPipeHeight - minPipeHeight);
-                    this.bottomY = this.topHeight + this.pipeGap;
-                } else {
-                    this.bottomY = canvas.height - minPipeHeight - Math.random() * (maxPipeHeight - minPipeHeight);
-                    this.topHeight = this.bottomY - this.pipeGap;
-                }
+                this.topHeight = gapY;
+                this.bottomY = gapY + this.pipeGap;
                 this.scored = false;
             }
+
+
             update() { this.x -= gameState.gameSpeed; }
             draw() {
+                // Draw top pipe from top to gap
                 ctx.drawImage(images.pipeTop, this.x, 0, gameState.pipeWidth, this.topHeight);
+                // Draw bottom pipe from gap to bottom
                 ctx.drawImage(images.pipeBottom, this.x, this.bottomY, gameState.pipeWidth, canvas.height - this.bottomY);
             }
         }
@@ -318,6 +322,8 @@
                     gameLoop();
                 }
             }, 500);
+
+            // new Bird().flap();
         }
 
         function resumeGame() {
@@ -394,28 +400,13 @@
             });
         }
 
-         // Modified parallax update logic for seamless scrolling
-         function updateParallax() {
+        function updateParallax() {
             gameState.backgrounds.forEach(layer => {
-                layer.x -= layer.speed * gameState.gameSpeed;
-                // Wrap position when image scrolls completely offscreen
-                if (layer.x <= -canvas.width) {
-                    layer.x += canvas.width;
-                }
+                layer.x -= layer.speed;
+                if (layer.x <= -canvas.width) layer.x = 0;
             });
         }
-
-        // Modified drawing logic for background layers
-        function drawBackground() {
-            gameState.backgrounds.forEach((layer, index) => {
-                const img = images[`layer${index + 1}`];
-                // Draw two copies of the image side-by-side for seamless looping
-                ctx.drawImage(img, layer.x, 0, canvas.width, canvas.height);
-                ctx.drawImage(img, layer.x + canvas.width, 0, canvas.width, canvas.height);
-                // Draw third copy for ultra-wide screens
-                ctx.drawImage(img, layer.x - canvas.width, 0, canvas.width, canvas.height);
-            });
-        }
+        
 
         // Weather particle classes
             class RainDrop {
@@ -490,15 +481,29 @@
         }
 
 
-         // Modified game loop with improved background handling
-         function gameLoop() {
+        // Game loop
+        function gameLoop() {
+            //debugger;
             if (!gameState.isPlaying || gameState.isPaused) return;
-            
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            drawBackground(); // Use the new background drawing function
-            
-            // Keep all existing game loop logic unchanged
-            updateWeather();
+            // Draw background with reduced height (90% of canvas height)
+                const bgHeight = canvas.height * 0.9;
+                const bgY = (canvas.height - bgHeight) / 2;
+                ctx.drawImage(images.background, 0, bgY, canvas.width, bgHeight);
+
+            // Draw parallax layers
+             gameState.backgrounds.forEach((layer, index) => {
+                const img = images[`layer${index + 1}`];
+                ctx.drawImage(img, layer.x, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, layer.x + canvas.width, 0, canvas.width, canvas.height);
+            });
+
+            updateParallax();
+
+
+
+            new Bird().update();
+            updateWeather();   // This line is added by myself
             gameState.weather.particles.forEach(p => {
                 p.update();
                 p.draw();
@@ -517,6 +522,7 @@
             new Bird().draw();
             gameState.particles.forEach(particle => particle.draw());
 
+  
             requestAnimationFrame(gameLoop);
         }
 
