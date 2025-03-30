@@ -78,6 +78,10 @@
                 new Image() // Frame 2 - wings mid
               
             ], 
+            layer1: new Image(),
+            layer2: new Image(),
+            layer3: new Image(),
+            layer4: new Image(),
             pipeTop: new Image(), 
             pipeBottom: new Image(), 
             background: new Image() 
@@ -97,6 +101,12 @@
                 frameCounter: 0,  // New: counter for frame updates
                 animationSpeed: 5 // New: frames per animation update
             },
+            backgrounds: [
+                { x: 0, speed: 0.2 },  // Deepest layer (slowest)
+                { x: 0, speed: 0.5 },
+                { x: 0, speed: 1.0 },
+                { x: 0, speed: 2.0 }   // Front layer (fastest)
+            ],
             pipes: [], 
             score: 0, 
             bestScore: localStorage.getItem('bestScore') || 0, 
@@ -142,6 +152,11 @@
         images.pipeTop.src = 'https://iili.io/3u4luRI.md.png';
         images.pipeBottom.src = 'https://iili.io/3u4luRI.md.png';
         images.background.src = 'https://iili.io/3u4j6yG.md.png';
+
+        images.layer1.src = 'https://iili.io/3u4j6yG.jpg';
+        images.layer2.src = 'https://iili.io/3AEWcbf.jpg';
+        images.layer3.src = 'https://iili.io/3AEjhJt.jpg';
+        images.layer4.src = 'https://iili.io/3AEwAQf.jpg';
 
         // Pipe generator
         class Pipe {
@@ -378,6 +393,13 @@
                 }
             });
         }
+
+        function updateParallax() {
+            gameState.backgrounds.forEach(layer => {
+                layer.x -= layer.speed;
+                if (layer.x <= -canvas.width) layer.x = 0;
+            });
+        }
         
 
         // Weather particle classes
@@ -459,6 +481,18 @@
             if (!gameState.isPlaying || gameState.isPaused) return;
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.drawImage(images.background, 0, 0, canvas.width, canvas.height);
+
+             // Draw parallax layers
+             gameState.backgrounds.forEach((layer, index) => {
+                const img = images[`layer${index + 1}`];
+                ctx.drawImage(img, layer.x, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, layer.x + canvas.width, 0, canvas.width, canvas.height);
+            });
+
+            updateParallax();
+
+
+
             new Bird().update();
             updateWeather();   // This line is added by myself
             gameState.weather.particles.forEach(p => {
@@ -478,6 +512,8 @@
             gameState.pipes.forEach(pipe => pipe.draw());
             new Bird().draw();
             gameState.particles.forEach(particle => particle.draw());
+
+  
             requestAnimationFrame(gameLoop);
         }
 
@@ -769,4 +805,4 @@
 </html>
 
 
-<!-- In the above code , remove rotation of image frame  and keep remaining code as it is and test the code and is it working 100%?  and give me code in single file -->
+<!-- In the above code , background image is scrolling , but background image changing effect should not feel, enhance that background image changing effect should not feel. keep remaining code as it is and give me code in single file -->

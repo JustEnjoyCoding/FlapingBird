@@ -394,13 +394,28 @@
             });
         }
 
-        function updateParallax() {
+         // Modified parallax update logic for seamless scrolling
+         function updateParallax() {
             gameState.backgrounds.forEach(layer => {
-                layer.x -= layer.speed;
-                if (layer.x <= -canvas.width) layer.x = 0;
+                layer.x -= layer.speed * gameState.gameSpeed;
+                // Wrap position when image scrolls completely offscreen
+                if (layer.x <= -canvas.width) {
+                    layer.x += canvas.width;
+                }
             });
         }
-        
+
+        // Modified drawing logic for background layers
+        function drawBackground() {
+            gameState.backgrounds.forEach((layer, index) => {
+                const img = images[`layer${index + 1}`];
+                // Draw two copies of the image side-by-side for seamless looping
+                ctx.drawImage(img, layer.x, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, layer.x + canvas.width, 0, canvas.width, canvas.height);
+                // Draw third copy for ultra-wide screens
+                ctx.drawImage(img, layer.x - canvas.width, 0, canvas.width, canvas.height);
+            });
+        }
 
         // Weather particle classes
             class RainDrop {
@@ -475,26 +490,15 @@
         }
 
 
-        // Game loop
-        function gameLoop() {
-            //debugger;
+         // Modified game loop with improved background handling
+         function gameLoop() {
             if (!gameState.isPlaying || gameState.isPaused) return;
+            
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.drawImage(images.background, 0, 0, canvas.width, canvas.height);
-
-             // Draw parallax layers
-             gameState.backgrounds.forEach((layer, index) => {
-                const img = images[`layer${index + 1}`];
-                ctx.drawImage(img, layer.x, 0, canvas.width, canvas.height);
-                ctx.drawImage(img, layer.x + canvas.width, 0, canvas.width, canvas.height);
-            });
-
-            updateParallax();
-
-
-
-            new Bird().update();
-            updateWeather();   // This line is added by myself
+            drawBackground(); // Use the new background drawing function
+            
+            // Keep all existing game loop logic unchanged
+            updateWeather();
             gameState.weather.particles.forEach(p => {
                 p.update();
                 p.draw();
@@ -513,7 +517,6 @@
             new Bird().draw();
             gameState.particles.forEach(particle => particle.draw());
 
-  
             requestAnimationFrame(gameLoop);
         }
 
