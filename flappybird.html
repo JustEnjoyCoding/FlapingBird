@@ -27,10 +27,61 @@
         button { background: #f1c40f; border: none; padding: 15px 30px; border-radius: 10px; color: black;
             font-weight: bold; cursor: pointer; margin: 10px; font-size: 20px; transition: transform 0.1s; }
         button:active { transform: scale(0.95); }
-        #countdown { position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); 
-            font-size: 100px; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); display: none; }
+
+        /* #countdown { position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); 
+            font-size: 100px; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); display: none; } */
+
         #pause-menu { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
             display: none; text-align: center; z-index: 4; }
+
+
+
+        #countdown { 
+            position: absolute; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); 
+            font-size: 100px; 
+            color: white; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            width: 150px;
+            height: 150px;
+            text-align: center;
+            line-height: 150px;
+            display:none;
+            z-index: 5;
+        }
+        
+        #countdown::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 150px;
+            height: 150px;
+            border: 5px solid rgba(255,255,255,0.5);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: rotate 1s linear infinite;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+        }
+        #countdown::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 130px;
+            height: 130px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+        }
+        @keyframes rotate {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
     </style>
 </head>
 <body style="background-color: mediumseagreen;">
@@ -64,6 +115,7 @@
         const pauseMenu = document.getElementById('pause-menu');
         const countdownElement = document.getElementById('countdown');
         const startScreen = document.getElementById('start-screen');
+        
 
         // Game assets
         // const images = { bird: new Image(), pipeTop: new Image(), pipeBottom: new Image(), background: new Image() };
@@ -159,11 +211,15 @@
         images.layer4.src = 'https://iili.io/3AWlMtR.png';
 
 
+
         
         // images.layer1.src = 'https://iili.io/3u4j6yG.jpg';
         // images.layer2.src = 'https://iili.io/3AEWcbf.jpg';
         // images.layer3.src = 'https://iili.io/3AEjhJt.jpg';
         // images.layer4.src = 'https://iili.io/3AEwAQf.jpg';
+
+
+       
 
         // Pipe generator
         class Pipe {
@@ -294,6 +350,11 @@
             }
         }
 
+        
+
+
+
+
         function startGame() {
             startScreen.style.display = 'none';
             countdownElement.style.display = 'block';
@@ -310,6 +371,8 @@
             pauseMenu.style.display = 'none';
 
             gameState.pipes.push(new Pipe());
+
+           
             
             let count = 3;
             const countdownInterval = setInterval(() => {
@@ -322,6 +385,9 @@
                     gameLoop();
                 }
             }, 500);
+
+
+            
 
             // new Bird().flap();
         }
