@@ -4,6 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flappy Bird Pro</title>
+
+      <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID');
+    </script>
+
+    <!-- Google Adsense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=AD_CLIENT_ID"
+            crossorigin="anonymous">
+    </script>
+
     <style>
         body { margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh;
             background: #4ec0ca; font-family: 'Arial Rounded MT Bold', Arial, sans-serif; touch-action: manipulation; overflow: hidden; }
@@ -82,9 +97,43 @@
             100% { transform: translate(-50%, -50%) rotate(360deg); }
         }
 
+   
+       
+        #game-container { position: relative; width: 800px; height: 1000px; max-width: 95%; max-height: 95vh; }
+ 
+        /* New Ad styling */
+        .ad-container {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 160px;
+            z-index: 100;
+        }
+        #left-ad { left: 10px; }
+        #right-ad { right: 10px; }
+
     </style>
 </head>
 <body style="background-color: mediumseagreen;">
+    
+
+    <!-- Left Ad -->
+    <div class="ad-container" id="left-ad">
+        
+        <ins class="adsbygoogle"
+             style="display:flexbox"
+             data-ad-client="AD_CLIENT_ID"
+             data-ad-slot="LEFT_AD_SLOT_ID"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+
+
+    <!-- Game Container -->
     <div id="game-container">
         <div id="start-screen">
             <h1>Flappy Bird Pro</h1>
@@ -104,6 +153,22 @@
             <button onclick="startGame()">Play Again</button>
         </div>
     </div>
+
+     <!-- Right Ad -->
+     <div class="ad-container" id="right-ad">
+        
+        <ins class="adsbygoogle"
+             style="display:flexbox"
+             data-ad-client="AD_CLIENT_ID"
+             data-ad-slot="RIGHT_AD_SLOT_ID"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+
 
     <script>
         const canvas = document.getElementById('game-canvas');
@@ -144,7 +209,7 @@
             bird: { 
                 x: 200, 
                 y: 400, 
-                velocity: 0, 
+                velocity: 2, 
                 gravity: 0.5, 
                 jump: -12,
                 size: 100,
@@ -154,10 +219,10 @@
                 animationSpeed: 5 // New: frames per animation update
             },
             backgrounds: [
-                { x: 0, speed: 0.2 },  // Deepest layer (slowest)
-                { x: 0, speed: 0.5 },
-                { x: 0, speed: 1.0 },
-                { x: 0, speed: 2.0 }   // Front layer (fastest)
+                { x: 0, speed: 1.0 },  // Deepest layer (slowest)
+                { x: 0, speed: 1.5 },
+                { x: 0, speed: 2.0 },
+                { x: 0, speed: 2.5 }   // Front layer (fastest)
             ],
             pipes: [], 
             score: 0, 
@@ -992,4 +1057,16 @@
 </html>
 
 
-<!-- In the above code , background image is scrolling , but background image changing effect should not feel, enhance that background image changing effect should not feel. keep remaining code as it is and give me code in single file -->
+<!-- Remember to:
+
+Replace GA_MEASUREMENT_ID with your Google Analytics ID
+
+Replace AD_CLIENT_ID with your AdSense publisher ID
+
+Replace LEFT_AD_SLOT_ID and RIGHT_AD_SLOT_ID with your actual ad slot IDs
+
+Ensure you comply with Google's policies regarding ads in games
+
+Verify ad placements don't interfere with game controls
+
+Adjust ad container widths and positions as needed for your layout -->

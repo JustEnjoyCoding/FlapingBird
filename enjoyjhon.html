@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Character Demo</title>
+    <style>
+        .container {
+            text-align: center;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+
+        #character {
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+            background: #ffcc00;
+            border-radius: 50%;
+            position: relative;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .eye {
+            position: absolute;
+            width: 30px;
+            height: 40px;
+            background: #000;
+            top: 50px;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+
+        #left-eye { left: 40px; }
+        #right-eye { right: 40px; }
+
+        .listening {
+            transform: scale(1.1);
+            background: #ffdd55;
+            animation: pulse 1s infinite;
+        }
+
+        .talking {
+            animation: talk 0.3s ease infinite;
+        }
+
+        .happy {
+            transform: rotate(10deg);
+            background: #ffdd00;
+        }
+
+        .sad {
+            transform: rotate(-10deg);
+            background: #666600;
+        }
+
+        .thinking .eye {
+            height: 20px;
+            top: 60px;
+        }
+
+        @keyframes talk {
+            50% { transform: scale(0.95); }
+        }
+
+        @keyframes pulse {
+            50% { transform: scale(1.05); }
+        }
+
+        button {
+            padding: 12px 24px;
+            margin: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            background: #4CAF50;
+            color: white;
+            transition: opacity 0.3s;
+        }
+
+        button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        #status {
+            color: #666;
+            margin: 15px;
+            min-height: 20px;
+        }
+
+        #dialog {
+            min-height: 60px;
+            padding: 15px;
+            margin: 20px;
+            border-radius: 10px;
+            background: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="character">
+            <div class="eye" id="left-eye"></div>
+            <div class="eye" id="right-eye"></div>
+        </div>
+        <button id="startBtn" disabled>Start Listening</button>
+        <button id="stopBtn" disabled>Stop</button>
+        <div id="status">Initializing...</div>
+        <div id="dialog"></div>
+    </div>
+
+    <script>
+        const character = document.getElementById('character');
+        const startBtn = document.getElementById('startBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const statusDiv = document.getElementById('status');
+        const dialogDiv = document.getElementById('dialog');
+
+        const isSpeechSupported = ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) &&
+                                 'speechSynthesis' in window;
+
+        if(isSpeechSupported) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const recognition = new SpeechRecognition();
+            const synth = window.speechSynthesis;
+            let isSpeaking = false;
+
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = 'en-US';
+            recognition.maxAlternatives = 1;
+
+            const emotions = {
+                happy: {
+                    keywords: ['happy', 'good', 'great', 'awesome'],
+                    responses: ["That's wonderful!", "I'm glad to hear that!", "Awesome!"]
+                },
+                sad: {
+                    keywords: ['sad', 'bad', 'awful', 'terrible'],
+                    responses: ["I'm sorry to hear that", "Let me try to cheer you up!", "Things will get better!"]
+                },
+                neutral: {
+                    responses: ["Interesting!", "Tell me more!", "I see..."]
+                }
+            };
+
+            // Initialize voices
+            let voices = [];
+            synth.addEventListener('voiceschanged', () => {
+                voices = synth.getVoices();
+            });
+
+            startBtn.disabled = false;
+            statusDiv.textContent = "Click 'Start Listening' to begin";
+
+            recognition.onstart = () => {
+                statusDiv.textContent = "Listening...";
+                character.classList.add('listening');
+                startBtn.disabled = true;
+                stopBtn.disabled = false;
+            };
+
+            recognition.onresult = async (event) => {
+                const transcript = event.results[0][0].transcript.toLowerCase();
+                showDialog(`You: ${transcript}`);
+                await processInput(transcript);
+            };
+
+            recognition.onerror = (event) => {
+                statusDiv.textContent = `Error: ${event.error}`;
+                resetUI();
+            };
+
+            recognition.onend = () => {
+                if(!isSpeaking) resetUI();
+            };
+
+            async function speak(text) {
+                return new Promise(resolve => {
+                    if (voices.length === 0) {
+                        voices = synth.getVoices();
+                    }
+
+                    const utterance = new SpeechSynthesisUtterance(text);
+                    utterance.voice = voices.find(v => v.lang === 'en-US') || voices[0];
+                    utterance.rate = 0.9;
+                    utterance.pitch = 1.2;
+                    utterance.volume = 1;
+
+                    utterance.onstart = () => {
+                        isSpeaking = true;
+                        character.classList.add('talking');
+                        showDialog(`Character: ${text}`);
+                    };
+
+                    utterance.onerror = () => {
+                        isSpeaking = false;
+                        resolve();
+                    };
+
+                    utterance.onend = () => {
+                        isSpeaking = false;
+                        character.classList.remove('talking');
+                        resetUI();
+                        resolve();
+                    };
+
+                    synth.speak(utterance);
+                });
+            }
+
+            async function processInput(text) {
+                character.classList.add('thinking');
+                await new Promise(resolve => setTimeout(resolve, 800));
+                
+                const emotion = detectEmotion(text);
+                character.className = emotion;
+                
+                const response = generateResponse(emotion);
+                await speak(response);
+                
+                character.classList.remove(emotion);
+            }
+
+            function detectEmotion(text) {
+                for(const [emotion, data] of Object.entries(emotions)) {
+                    if(data.keywords && data.keywords.some(word => text.includes(word))) {
+                        return emotion;
+                    }
+                }
+                return 'neutral';
+            }
+
+            function generateResponse(emotion) {
+                const responses = emotions[emotion].responses;
+                return responses[Math.floor(Math.random() * responses.length)];
+            }
+
+            function showDialog(text) {
+                dialogDiv.textContent = text;
+            }
+
+            function resetUI() {
+                character.className = '';
+                startBtn.disabled = false;
+                stopBtn.disabled = true;
+                statusDiv.textContent = "Ready to listen";
+            }
+
+            startBtn.addEventListener('click', () => recognition.start());
+            stopBtn.addEventListener('click', () => {
+                recognition.stop();
+                synth.cancel();
+                resetUI();
+            });
+
+            navigator.mediaDevices.getUserMedia({ audio: true })
+                .catch(() => {
+                    statusDiv.textContent = "Microphone access is required";
+                    startBtn.disabled = true;
+                });
+        } else {
+            statusDiv.textContent = "Speech features not supported in this browser";
+        }
+    </script>
+</body>
+</html>
