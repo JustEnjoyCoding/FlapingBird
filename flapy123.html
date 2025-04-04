@@ -19,9 +19,35 @@
             crossorigin="anonymous">
     </script> -->
 
+    <!-- This code is used to prevent access view source code -->
+    <!-- <script>
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+        
+        document.onkeydown = function(e) {
+            if(e.keyCode == 123) { // Disable F12
+                return false;
+            }
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { // Disable Ctrl+Shift+I
+                return false;
+            }
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { // Disable Ctrl+Shift+J
+                return false;
+            }
+            if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { // Disable Ctrl+U
+                return false;
+            }
+        };
+    </script> -->
+
     <style>
         body { margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh;
-            background: #4ec0ca; font-family: 'Arial Rounded MT Bold', Arial, sans-serif; touch-action: manipulation; overflow: hidden; }
+            background: #4ec0ca; font-family: 'Arial Rounded MT Bold', Arial, sans-serif; touch-action: manipulation; overflow: hidden;
+            
+              
+        
+        }
         #game-container { position: relative; width: 800px; height: 1000px; max-width: 95%; max-height: 95vh; }
         #game-canvas { width: 100%; height: 100%; }
 
@@ -41,6 +67,11 @@
             min-width: 140px;
             text-align: center;
             border: 3px solid white; /* Added white border */
+            display: none; /* Hidden by default */
+        }
+
+        #score-display.visible {
+            display: block; /* Show when needed */
         }
 
         #game-over { 
@@ -230,6 +261,11 @@
             width: auto;
         }
 
+        /* Add this to your existing CSS */
+        #score-display.hidden {
+            display: none;
+        }
+
         @media (max-width: 600px) {
             #submit-form {
                 padding: 20px;
@@ -387,7 +423,7 @@
         <div id="submit-form">
             <h3>New High Score! 🎉</h3>
             <input type="text" id="player-name" placeholder="Your Name" style="text-transform: uppercase" required>
-            <input type="text" id="player-country" placeholder="Country Code" 
+            <input type="text" id="player-country" placeholder="Country code in 2 letter" 
                    maxlength="2" style="text-transform: uppercase">
             <div class="button-container">
                 <button onclick="submitScore()">Submit</button>
@@ -740,6 +776,10 @@
 
                 if (!response.ok) throw new Error('Submission failed');
                 
+                // Clear inputs after successful submission
+                name.value = '';
+                country.value = '';
+
                 hideSubmitForm();
                 showLeaderboard();
                 //alert('Score submitted successfully!');
@@ -808,6 +848,13 @@
             gameOverScreen.style.display = 'none';
             pauseMenu.style.display = 'none';
 
+             // Show score display
+            document.getElementById('score-display').classList.remove('hidden');
+            document.getElementById('score-display').classList.add('visible'); // Show score
+
+            startScreen.style.display = 'none';
+            countdownElement.style.display = 'block';
+
             gameState.pipes.push(new Pipe());
 
            
@@ -831,12 +878,14 @@
         }
 
         function resumeGame() {
+            document.getElementById('score-display').classList.add('visible'); // Show score
             gameState.isPaused = false;
             pauseMenu.style.display = 'none';
             gameLoop();
         }
 
         function restartGame() {
+            document.getElementById('score-display').classList.add('visible'); // Show score
             gameState.isPaused = false;
             startGame();
         }
@@ -847,6 +896,9 @@
             gameState.isPlaying = false;
             playHit();
 
+            document.getElementById('score-display').classList.add('hidden');
+            document.getElementById('score-display').classList.remove('visible'); // Hide score
+
             document.getElementById('game-over').style.display = 'block';
             document.getElementById('final-score').textContent = gameState.score;
             
@@ -855,6 +907,7 @@
                 localStorage.setItem('bestScore', gameState.bestScore);
             }
             bestScoreElement.textContent = gameState.bestScore;
+            
         }
 
         function checkCollisions() {
@@ -1062,6 +1115,13 @@
         document.addEventListener('click', () => { 
             if (audioContext.state === 'suspended') audioContext.resume();
         }, { once: true });
+    </script>
+
+    <!-- Add copyright notice in console -->
+    <script>
+        console.log('%c⚠️ WARNING: This game is protected by copyright! ⚠️\n%cUnauthorized copying/distribution is prohibited.',
+                    'color: red; font-size: 18px;',
+                    'color: orange; font-size: 14px;');
     </script>
 
 
