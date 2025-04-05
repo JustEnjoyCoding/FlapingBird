@@ -52,7 +52,7 @@
 
         #game-canvas { 
             width: 100%; height: 100%; 
-            border: 4px solid white; /* Added white border */
+            border: 5px solid white; /* Added white border */
             border-radius: 15px; /* Add this */
             overflow: hidden; /* Ensures content respects the border radius */
             background-image: url('https://iili.io/35sfcFe.jpg');
@@ -1199,20 +1199,24 @@
                 if (gameState.isPlaying) {
                     new Bird().flap();
                 } else if (gameOverScreen.style.display === 'block') {
+                    hideLeaderboard();
                     startGame();
                 } else if (startScreen.style.display !== 'none') {
+                    hideLeaderboard();
                     startGame();
                 }
             }
             if (e.code === 'Escape') {
                 gameState.isPaused = !gameState.isPaused;
                 pauseMenu.style.display = gameState.isPaused ? 'block' : 'none';
+                hideLeaderboard();
             }
         });
         canvas.addEventListener('click', () => {
             if (gameState.isPlaying) {
                 new Bird().flap();
             } else if (gameOverScreen.style.display === 'block') {
+                hideLeaderboard();
                 startGame();
             }
         });
