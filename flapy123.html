@@ -437,15 +437,50 @@
         display: block;
     }
 
-      /* Add this to your existing button styles */
-      #start-screen button {
-        border: 4px solid white;
-        box-sizing: border-box; /* Ensures border doesn't affect button size */
+    /* Add this to your existing button styles */
+    #start-screen button {
+        background: linear-gradient(145deg, #1a237e, #0d47a1); /* Deep blue gradient */
+        color: #fff !important;
+        border: 3px solid #FFD700 !important;
+        text-shadow: 0 0 8px rgba(255,215,0,0.5);
+        box-shadow: 0 0 15px rgba(25,118,210,0.5)
+                    
+         
+
+    }
+
+    #start-screen button::before {
+        background: linear-gradient(
+            45deg,
+            rgba(255,255,255,0) 25%,
+            rgba(255,215,0,0.8) 50%,  /* Gold sparkles */
+            rgba(255,255,255,0) 75%
+        );
     }
 
     /* Optional: Add hover effect */
     #start-screen button:hover {
-        border-color: #0ad615;
+        box-shadow: 0 0 30px rgba(255,215,0,0.8), 
+                    0 0 15px rgba(255,255,255,0.6) inset;
+    }
+
+    #start-screen button:hover::after {
+        content: ' 🚀'; /* Rocket emoji instead of sparkle */
+        text-shadow: 0 0 15px rgba(255,215,0,0.8);
+    }
+
+    @keyframes sparkle {
+        0% { transform: translate(-30%, -30%) rotate(0deg); }
+        100% { transform: translate(30%, 30%) rotate(360deg); }
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0) rotate(0deg); }
+        50% { transform: translateY(-20px) rotate(15deg); }
+    }
+
+    #start-screen button:active {
+        transform: scale(0.95) rotate(2deg);
     }
     </style>
 
@@ -494,7 +529,7 @@
 
         <!-- Leaderboard and Submit Form -->
         <div id="leaderboard">
-            <h2>🏆 Leaderboard</h2>
+            <h2>🏆 Leaderboard Top (10)</h2>
             <div class="loading-spinner"></div>
             <div class="leaderboard-content">
                 <div id="leaderboard-entries"></div>
@@ -1228,8 +1263,8 @@
     <!-- Add copyright notice in console -->
     <script>
         console.log('%c⚠️ WARNING: This game is protected by copyright! ⚠️\n%cUnauthorized copying/distribution is prohibited.',
-                    'color: red; font-size: 18px;',
-                    'color: orange; font-size: 14px;');
+                    'color: red; font-size: 20px;',
+                    'color: orange; font-size: 20px;');
     </script>
 
 
