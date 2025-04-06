@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flappy Bird Pro</title>
+    <title>Flaping Bird Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
       <!-- Google Analytics -->
     <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
@@ -40,6 +41,128 @@
             }
         };
     </script> -->
+
+    <style>
+        /* New Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #1a237e;
+            padding: 1rem 2rem;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            height: 40px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .nav-links a:hover {
+            background: #f1c40f;
+            color: #1a237e;
+        }
+
+        /* New Footer Styles */
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #1a237e;
+            padding: 1rem 2rem;
+            color: white;
+            z-index: 1000;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #f1c40f;
+            transform: translateY(-2px);
+        }
+
+        /* Adjust Game Container for Header/Footer */
+        body {
+            padding-top: 70px;
+            padding-bottom: 70px;
+        }
+
+        /* Existing body styles - keep these */
+        body { 
+            margin: 0; 
+            padding: 0; 
+            min-height: 100vh; 
+            background: #4ec0ca; 
+            font-family: 'Arial Rounded MT Bold', Arial, sans-serif; 
+            touch-action: manipulation; 
+            overflow: hidden;
+        }
+
+        /* Rest of existing styles remain unchanged */
+        /* ... (All previous CSS content remains here) ... */
+    </style>
+
+
+
+
+
 
     <style>
         body { margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh;
@@ -484,13 +607,78 @@
     }
     </style>
 
+    <style>
+            /* Audio Toggle Button */
+         /* Audio Toggle Button */
+    #audio-toggle {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.9);
+        border: none;
+        border-radius: 100%;
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        padding: 0;
+        margin: 0;
+        overflow: hidden;
+    }
+
+    #audio-toggle i {
+        font-size: 1.5rem;
+        color: #1a237e;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+    }
+
+    @media (max-width: 600px) {
+        #audio-toggle {
+            bottom: 15px;
+            left: 15px;
+            width: 40px;
+            height: 40px;
+        }
+        #audio-toggle i {
+            font-size: 1.2rem;
+        }
+    }
+    </style>
+
 
 </head>
 <body style="background-color: mediumseagreen;">
+
+
+
+    <!-- New Header -->
+    <!-- New Header -->
+    <header>
+        <a href="#" class="logo">
+            <img src="https://i.ibb.co/7Yk2Zz2/bird-logo.png" alt="Flappy Bird Logo" class="logo-img">
+            <span>Flaping Bird</span>
+        </a>
+        <nav class="nav-links">
+            <a href="/home.html">Home</a>
+            <a href="/blogs.html">Blog</a>
+            <a href="/leaderboard.html">Leaderboard</a>
+            <a href="/aboutus.html">About Us</a>
+            <a href="/contactus.html">Contact Us</a>
+        </nav>
+    </header>
     
 
     <!-- Left Ad -->
-    <!-- <div class="ad-container" id="left-ad">
+    <div class="ad-container" id="left-ad">
         
         <ins class="adsbygoogle"
              style="display:flexbox"
@@ -501,7 +689,12 @@
         <script>
              (adsbygoogle = window.adsbygoogle || []).push({});
         </script>
-    </div> -->
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+
 
 
 
@@ -511,7 +704,7 @@
             <h1></h1>
             <button style="margin-top: 146px;" onclick="startGame()">Start Game</button>
         </div>
-        <div id="score-display" style="background-color: lightseagreen;">Score: 0</div>
+        <div id="score-display" style="background-color: lightseagreen;margin-top: 48px;">Score: 0</div>
         <div id="countdown">3</div>
         <div id="pause-menu">
             <button onclick="resumeGame()">Resume</button>
@@ -551,7 +744,7 @@
     </div>
 
      <!-- Right Ad -->
-     <!-- <div class="ad-container" id="right-ad">
+     <div class="ad-container" id="right-ad">
         
         <ins class="adsbygoogle"
              style="display:flexbox"
@@ -562,7 +755,33 @@
         <script>
              (adsbygoogle = window.adsbygoogle || []).push({});
         </script>
-    </div> -->
+    </div>
+
+
+    <!-- Add this HTML (same as before) -->
+    <button id="audio-toggle" style="margin-bottom: 42px;margin-left: 394px;">
+        <i class="fas fa-volume-up"></i>
+    </button>
+
+
+    <!-- New Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="/privacyploicy.html">Privacy Policy</a>
+                <a href="/termsandconditions.html">Terms & Conditions</a>
+                <a href="/disclaimer.html">Disclaimer</a>
+            </div>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+            <div class="copyright">
+                &copy; 2025 Flaping Bird Pro. All rights reserved.
+            </div>
+        </div>
+    </footer>
 
 
 
@@ -639,11 +858,13 @@
                 windForce: 0,
                 nextChange: 0,
                 particles: []
-            }
+            },
+            isMuted: true
         };
 
         // Sound functions
         function playFlap() {
+            if(gameState.isMuted) return;
             const oscillator = audioContext.createOscillator(), gainNode = audioContext.createGain();
             oscillator.type = 'sine'; oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
             gainNode.gain.setValueAtTime(0.2, audioContext.currentTime); oscillator.connect(gainNode);
@@ -651,6 +872,7 @@
         }
 
         function playPoint() {
+            if(gameState.isMuted) return;
             const oscillator = audioContext.createOscillator(), gainNode = audioContext.createGain();
             oscillator.type = 'square'; oscillator.frequency.setValueAtTime(1500, audioContext.currentTime);
             gainNode.gain.setValueAtTime(0.2, audioContext.currentTime); oscillator.connect(gainNode);
@@ -658,6 +880,7 @@
         }
 
         function playHit() {
+            if(gameState.isMuted) return;
             const oscillator = audioContext.createOscillator(), gainNode = audioContext.createGain();
             oscillator.type = 'square'; oscillator.frequency.setValueAtTime(200, audioContext.currentTime);
             gainNode.gain.setValueAtTime(0.4, audioContext.currentTime); oscillator.connect(gainNode);
@@ -1265,6 +1488,29 @@
         console.log('%c⚠️ WARNING: This game is protected by copyright! ⚠️\n%cUnauthorized copying/distribution is prohibited.',
                     'color: red; font-size: 20px;',
                     'color: orange; font-size: 20px;');
+    </script>
+
+    <script>
+
+        
+
+        // Audio toggle functionality
+          // Audio toggle functionality
+    const audioToggle = document.getElementById('audio-toggle');
+    audioToggle.addEventListener('click', () => {
+        gameState.isMuted = !gameState.isMuted;
+        audioToggle.innerHTML = `<i class="fas ${gameState.isMuted ? 'fa-volume-mute' : 'fa-volume-up'}"></i>`;
+        localStorage.setItem('flappyMuteState', gameState.isMuted);
+    });
+
+    // Initialize from localStorage
+    window.addEventListener('load', () => {
+        const savedMute = localStorage.getItem('flappyMuteState') === 'true';
+        gameState.isMuted = savedMute;
+        audioToggle.innerHTML = `<i class="fas ${savedMute ? 'fa-volume-mute' : 'fa-volume-up'}"></i>`;
+    });
+
+
     </script>
 
 

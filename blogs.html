@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flappy Bird Pro</title>
+    <!-- Font Awesome for Social Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* New Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #1a237e;
+            padding: 1rem 2rem;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            height: 40px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .nav-links a:hover {
+            background: #f1c40f;
+            color: #1a237e;
+        }
+
+        /* New Footer Styles */
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #1a237e;
+            padding: 1rem 2rem;
+            color: white;
+            z-index: 1000;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #f1c40f;
+            transform: translateY(-2px);
+        }
+
+        /* Adjust Game Container for Header/Footer */
+        body {
+            padding-top: 70px;
+            padding-bottom: 70px;
+        }
+
+        /* Existing body styles - keep these */
+        body { 
+            margin: 0; 
+            padding: 0; 
+            min-height: 100vh; 
+            background: #4ec0ca; 
+            font-family: 'Arial Rounded MT Bold', Arial, sans-serif; 
+            touch-action: manipulation; 
+            overflow: hidden;
+        }
+
+        /* Rest of existing styles remain unchanged */
+        /* ... (All previous CSS content remains here) ... */
+    </style>
+
+<style>
+    /* Add to existing body styles */
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Game Container Styles */
+    #blogs-container {
+        border: 2px solid white;
+            width: 90%;
+            max-width: 100%;
+            height: calc(100vh - 140px); /* Adjusted for header/footer */
+            margin: 0 auto;
+            overflow-y: auto; /* Enable vertical scrolling */
+            box-sizing: border-box;
+            padding: 20px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 10px;
+            position: relative;
+            border-style: cover;
+    }
+
+    
+    
+           /* Add blog-specific styles */
+           .blog-content {
+            padding: 30px;
+            color: #333;
+        }
+
+        .blog-title {
+            color: #1a237e;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .blog-section {
+            margin-bottom: 2.5rem;
+            border-left: 4px solid #f1c40f;
+            padding-left: 1.5rem;
+        }
+
+        .blog-subtitle {
+            color: #1a237e;
+            font-size: 1.8rem;
+            margin: 1.5rem 0;
+        }
+
+        .feature-list {
+            columns: 2;
+            column-gap: 2rem;
+            margin: 1.5rem 0;
+        }
+
+        .key-controls-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: #f8f9fa;
+        }
+
+        .key-controls-table td, .key-controls-table th {
+            padding: 12px;
+            border: 1px solid #dee2e6;
+        }
+
+        .key-controls-table th {
+            background-color: #1a237e;
+            color: white;
+        }
+
+        .pro-tip {
+            background: #fff3cd;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .faq-section {
+            background: #e9ecef;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .conclusion-box {
+            border: 2px solid #1a237e;
+            padding: 1.5rem;
+            text-align: center;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+
+        .blog-ad {
+    margin: 2rem 0;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid #dee2e6;
+}
+
+.blog-ad ins {
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .blog-ad {
+        padding: 0.5rem;
+    }
+}
+    
+</style>
+    <!-- Rest of head content remains the same -->
+</head>
+<body style="background-color: mediumseagreen;">
+
+
+       <!-- New Header -->
+       <header>
+        <a href="#" class="logo">
+            <img src="https://i.ibb.co/7Yk2Zz2/bird-logo.png" alt="Flappy Bird Logo" class="logo-img">
+            <span>Flaping Bird</span>
+        </a>
+        <nav class="nav-links">
+            <a href="/home.html">Home</a>
+            <a href="/blogs.html">Blog</a>
+            <a href="/leaderboard.html">Leaderboard</a>
+            <a href="/aboutus.html">About Us</a>
+            <a href="/contactus.html">Contact Us</a>
+        </nav>
+    </header>
+
+    <!-- Game Container (existing content remains same) -->
+    <div id="blogs-container">
+
+        <div class="blog-content">
+            <h1 class="blog-title">Flaping Bird : The Ultimate Guide</h1>
+            
+            <div class="blog-section">
+                <h2 class="blog-subtitle">🎮 Introduction</h2>
+                <p>Flappy Bird Pro reimagines the iconic mobile game with enhanced visuals, dynamic gameplay mechanics, and competitive features. Built using HTML5 Canvas and JavaScript, this version introduces:</p>
+                <ul class="feature-list">
+                    <li>Parallax scrolling backgrounds</li>
+                    <li>Dynamic weather systems</li>
+                    <li>Global leaderboards</li>
+                    <li>Mobile-optimized controls</li>
+                    <li>Special power-up effects</li>
+                </ul>
+            </div>
+
+            <!-- Google Ads After Introduction -->
+        <div class="blog-ad">
+            <!-- Google AdSense Code -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+                crossorigin="anonymous"></script>
+            <!-- Blog Post Top Ad -->
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                data-ad-slot="XXXXXXXXXX"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+            <div class="blog-section">
+                <h2 class="blog-subtitle">🕹️ Core Gameplay Mechanics</h2>
+                <h3>Physics Engine</h3>
+                <ul>
+                    <li><strong>Gravity:</strong> 0.5px/frame² descent</li>
+                    <li><strong>Jump Force:</strong> -12px upward boost</li>
+                    <li><strong>Rotation:</strong> Dynamic 45° tilt</li>
+                </ul>
+
+                <h3>Key Controls</h3>
+                <table class="key-controls-table">
+                    <tr>
+                        <th>Key</th>
+                        <th>Function</th>
+                    </tr>
+                    <tr>
+                        <td>Spacebar</td>
+                        <td>Flap wings/Start game</td>
+                    </tr>
+                    <tr>
+                        <td>Escape</td>
+                        <td>Pause/Resume</td>
+                    </tr>
+                    <tr>
+                        <td>Mouse Click</td>
+                        <td>Mobile-friendly flap</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="pro-tip">
+                <h3>🏆 Pro Tip:</h3>
+                <p>Master the rhythm! Optimal flap timing is 0.5 seconds between jumps for maximum efficiency.</p>
+            </div>
+
+            <div class="blog-section">
+                <h2 class="blog-subtitle">🌟 Advanced Features</h2>
+                <h3>Dynamic Weather System</h3>
+                <ul>
+                    <li><strong>Rain:</strong> Increases vertical speed</li>
+                    <li><strong>Snow:</strong> Adds wind drift</li>
+                    <li><strong>Wind:</strong> ±2px/frame push</li>
+                </ul>
+            </div>
+
+            <div class="faq-section">
+                <h2 class="blog-subtitle">❓ Frequently Asked Questions</h2>
+                <h3>Q: How do I submit scores?</h3>
+                <p>A: After game over, click "Submit Score" and enter your name + 2-letter country code.</p>
+                
+                <h3>Q: What are the golden sparks?</h3>
+                <p>A: Special particle effects rewarding every 5 points!</p>
+            </div>
+
+            <div class="conclusion-box">
+                <h2 class="blog-subtitle">Ready to Play?</h2>
+                <p>Join thousands of players worldwide in this  masterpiece!</p>
+                
+            </div>
+        </div>
+
+
+           
+        <!-- All existing game content remains here -->
+    </div>
+
+     <!-- New Footer -->
+     <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="/privacyploicy.html">Privacy Policy</a>
+                <a href="/termsandconditions.html">Terms & Conditions</a>
+                <a href="/disclaimer.html">Disclaimer</a>
+            </div>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+            <div class="copyright">
+                &copy; 2025 Flaping Bird Pro. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- All existing JavaScript remains the same -->
+    <!-- ... (All previous JavaScript content remains here) ... -->
+</body>
+</html>

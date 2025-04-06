@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard</title>
+    <!-- Font Awesome for Social Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #1a237e;
+            padding: 1rem 2rem;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            height: 40px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Footer Styles */
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #1a237e;
+            padding: 1rem 2rem;
+            color: white;
+            z-index: 1000;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        /* Main Content Styles */
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: mediumseagreen;
+            font-family: Arial, sans-serif;
+            padding: 80px 0; /* Space for header/footer */
+            box-sizing: border-box;
+        }
+
+        #leaderboard-container {
+            width: 90%;
+            max-width: 1000px; /* Increased from 800px */
+            margin: 0 auto;
+            min-height: calc(100vh - 160px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #leaderboard {
+            background: rgba(0, 0, 128, 0.95);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            border: 3px solid white;
+            box-shadow: 0 0 30px rgba(0,0,0,0.3);
+            width: 100%;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 25px 40px; /* More horizontal padding */
+        }
+
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #f1c40f;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .leaderboard-entry {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding: 15px 25px; /* Increased horizontal padding */
+            margin: 10px 0;
+            background: rgba(255,255,255,0.15);
+            border-radius: 8px;
+            box-sizing: border-box; /* Include padding in width */
+            min-width: 100%; /* Force full width */
+        }
+
+        
+        .leaderboard-entry span {
+            flex: 1;
+            min-width: 150px; /* Increased minimum width for columns */
+            font-size: 1.1em; /* Larger text */
+            white-space: nowrap; /* Prevent text wrapping */
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .leaderboard-entry span:last-child {
+            text-align: right;
+            flex-shrink: 0;
+            padding-left: 20px; /* Space between columns */
+        }
+
+        #leaderboard h2 {
+            text-align: center;
+            margin: 0 0 25px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <a href="#" class="logo">
+            <img src="https://i.ibb.co/7Yk2Zz2/bird-logo.png" alt="Flappy Bird Logo" class="logo-img">
+            <span>Flaping Bird</span>
+        </a>
+        <nav class="nav-links">
+            <a href="/home.html">Home</a>
+            <a href="/blogs.html">Blog</a>
+            <a href="/leaderboard.html">Leaderboard</a>
+            <a href="/aboutus.html">About Us</a>
+            <a href="/contactus.html">Contact Us</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div id="leaderboard-container">
+        <div id="leaderboard">
+            <h2>🏆 Leaderboard Top (10)</h2>
+            <div class="loading-spinner"></div>
+            <div class="leaderboard-content">
+                <div id="leaderboard-entries"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="/privacyploicy.html">Privacy Policy</a>
+                <a href="/termsandconditions.html">Terms & Conditions</a>
+                <a href="/disclaimer.html">Disclaimer</a>
+            </div>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+            <div class="copyright">
+                &copy; 2025 Flaping Bird Pro. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxzg2e2KGC1d8Hel-9KbHYTZ2SuiSrcnzh9N45yYEGofQZ_1i-q957TzibI7unZ-Qw9/exec';
+
+        async function showLeaderboard() {
+            try {
+                const leaderboard = document.getElementById('leaderboard');
+                const spinner = document.querySelector('.loading-spinner');
+                const entriesDiv = document.getElementById('leaderboard-entries');
+                
+                spinner.style.display = 'block';
+                entriesDiv.innerHTML = '';
+
+                const response = await fetch(SCRIPT_URL);
+                const data = await response.json();
+                
+                const entries = data.sort((a, b) => b.score - a.score)
+                                  .slice(0, 10)
+                                  .map((entry, index) => `
+                                    <div class="leaderboard-entry">
+                                        <span>${index + 1}. ${entry.name}</span>
+                                        <span>${entry.score} (${entry.country})</span>
+                                    </div>
+                                  `).join('');
+
+                entriesDiv.innerHTML = entries;
+                spinner.style.display = 'none';
+            } catch (error) {
+                console.error('Error:', error);
+                spinner.style.display = 'none';
+                entriesDiv.innerHTML = '<div>Error loading leaderboard</div>';
+            }
+        }
+
+        // Show leaderboard when page loads
+        document.addEventListener('DOMContentLoaded', showLeaderboard);
+    </script>
+</body>
+</html>

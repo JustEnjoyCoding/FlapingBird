@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flappy  Bird</title>
+    <!-- Font Awesome for Social Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* New Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #1a237e;
+            padding: 1rem 2rem;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            height: 40px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .nav-links a:hover {
+            background: #f1c40f;
+            color: #1a237e;
+        }
+
+        /* New Footer Styles */
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #1a237e;
+            padding: 1rem 2rem;
+            color: white;
+            z-index: 1000;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #f1c40f;
+            transform: translateY(-2px);
+        }
+
+        /* Adjust Game Container for Header/Footer */
+        body {
+            padding-top: 70px;
+            padding-bottom: 70px;
+        }
+
+        /* Existing body styles - keep these */
+        body { 
+            margin: 0; 
+            padding: 18px; 
+            /* margin-bottom: 52px;  */
+            min-height: 100vh; 
+            background: #4ec0ca; 
+            font-family: 'Arial Rounded MT Bold', Arial, sans-serif; 
+            touch-action: manipulation; 
+            overflow: hidden;
+        }
+
+        /* Rest of existing styles remain unchanged */
+        /* ... (All previous CSS content remains here) ... */
+    </style>
+
+    <style>
+        /* Add to existing body styles */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Game Container Styles */
+         /* Modified About Container Styles */
+         #aboutus-container {
+            border: 2px solid white;
+            width: 90%;
+            max-width: 100%;
+            height: calc(100vh - 140px); /* Adjusted for header/footer */
+            margin: 0 auto;
+            overflow-y: auto; /* Enable vertical scrolling */
+            box-sizing: border-box;
+            padding: 20px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 10px;
+            position: relative;
+            border-style: cover;
+        }
+
+        /* .ads-container {
+            position: absolute;
+             bottom: 0; 
+            left: 0;
+            right: 0;
+            text-align: center;
+            padding: 10px;
+            background: #f1f1f1;
+        } */
+
+   
+
+.content-section {
+    margin-bottom: 35px;
+    padding: 15px;
+    background: rgba(255,255,255,0.95);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+
+
+
+
+
+
+    </style>
+
+
+
+    <!-- Rest of head content remains the same -->
+</head>
+<body style="background-color: mediumseagreen;">
+
+
+       <!-- New Header -->
+       <header>
+        <a href="#" class="logo">
+            <img src="https://i.ibb.co/7Yk2Zz2/bird-logo.png" alt="Flappy Bird Logo" class="logo-img">
+            <span>Flaping Bird</span>
+        </a>
+        <nav class="nav-links">
+            <a href="/home.html">Home</a>
+            <a href="/blogs.html">Blog</a>
+            <a href="/leaderboard.html">Leaderboard</a>
+            <a href="/aboutus.html">About Us</a>
+            <a href="/contactus.html">Contact Us</a>
+        </nav>
+    </header>
+
+    <!-- Game Container (existing content remains same) -->
+    <div id="aboutus-container">
+
+         
+        <h1 style="color: #1a237e; text-align: center; margin-bottom: 30px;">Welcome to Flaping Bird</h1>
+
+        
+    
+    
+        <div class="content-section">
+            <h2 style="color: #1a237e; border-bottom: 2px solid #f1c40f; padding-bottom: 8px; margin-bottom: 15px;">Our Gaming Philosophy</h2>
+            <p style="line-height: 1.6; margin-bottom: 25px;">
+                At FlapingBird Pro, we pride ourselves on delivering an unparalleled gaming experience that combines intuitive gameplay with cutting-edge features. As the leading platform for the iconic Flaping Bird challenge, we've created a seamless, engaging adventure designed for players of all skill levels.
+            </p>
+        <!-- </div>
+    
+        <div class="content-section"> -->
+            <h2 style="color: #1a237e; border-bottom: 2px solid #f1c40f; padding-bottom: 8px; margin-bottom: 15px;">Stay Informed & Improve Your Game</h2>
+            <p style="line-height: 1.6; margin-bottom: 25px;">
+                Explore our <strong>exclusive blog</strong> for the latest updates, strategic insights, and industry news. Whether you're a casual player or a competitive enthusiast, our curated content is designed to enhance your experience and keep you ahead of the competition.
+            </p>
+        <!-- </div>
+    
+        <div class="content-section"> -->
+            <h2 style="color: #1a237e; border-bottom: 2px solid #f1c40f; padding-bottom: 8px; margin-bottom: 15px;">Your Feedback Matters</h2>
+            <p style="line-height: 1.6; margin-bottom: 25px;">
+                We actively encourage player input to drive innovation. Share your suggestions or questions via our <strong>social channels</strong> or email us directly at <a href="mailto:birdflaping@gmail.com" style="color: #1a237e; text-decoration: underline;">birdflaping@gmail.com</a>. Your insights directly influence our continuous improvements and feature development.
+            </p>
+        </div>
+    
+        <!-- <div class="content-section">
+            <h2 style="color: #1a237e; border-bottom: 2px solid #f1c40f; padding-bottom: 8px; margin-bottom: 15px;">Professional Partnerships</h2>
+            <p style="line-height: 1.6; margin-bottom: 25px;">
+                For business inquiries, partnership opportunities, or media requests, please contact our executive team at <a href="mailto:birdflaping@gmail.com" style="color: #1a237e; text-decoration: underline;">birdflaping@gmail.com</a>. We prioritize prompt, professional communication and look forward to exploring collaborative opportunities.
+            </p>
+        </div> -->
+    
+        <div style="text-align: center; margin-top: 30px;">
+            <p style="font-style: italic; color: #666;">
+                "Elevate your gameplay. Define your strategy. Discover excellence with FlapingBird Pro."
+            </p>
+        </div>
+
+
+        <!-- Google Ads Container -->
+        <div class="ads-container">
+            <!-- Google AdSense Sample Code - Replace with your actual ad code -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+                crossorigin="anonymous"></script>
+            <!-- About Page Bottom Ad -->
+            <ins class="adsbygoogle"
+                style="display:inline-block;width:728px;height:90px"
+                data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                data-ad-slot="XXXXXXXXXX"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
+        
+
+         
+    </div>
+
+
+    
+
+     <!-- New Footer -->
+     <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="/privacyploicy.html">Privacy Policy</a>
+                <a href="/termsandconditions.html">Terms & Conditions</a>
+                <a href="/disclaimer.html">Disclaimer</a>
+            </div>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+            <div class="copyright">
+                &copy; 2025 Flaping Bird Pro. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- All existing JavaScript remains the same -->
+    <!-- ... (All previous JavaScript content remains here) ... -->
+</body>
+</html>
