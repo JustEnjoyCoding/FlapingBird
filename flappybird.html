@@ -239,7 +239,7 @@
                         margin: 10px; 
                         font-size: 20px; 
                         transition: transform 0.1s; 
-                        min-width: 200px;
+                        min-width: 63px;
                         /* border: 2px solid white;  */
                }
 
@@ -615,14 +615,14 @@
         bottom: 20px;
         left: 20px;
         z-index: 1000;
-        background: rgba(255, 255, 255, 0.9);
-        border: none;
-        border-radius: 100%;
+        background: gold;
+        border: 3px solid white; /* Added white border */
+        border-radius: 58px;
         width: 50px;
         height: 50px;
         cursor: pointer;
         box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-        display: flex;
+        display: none;
         align-items: center;
         justify-content: center;
         transition: all 0.3s ease;
@@ -1197,6 +1197,7 @@
         function startGame() {
             startScreen.style.display = 'none';
             countdownElement.style.display = 'block';
+            document.getElementById('audio-toggle').style.display = 'flex'; // Show audio toggle
             gameState.isPlaying = true;
             gameState.isPaused = false;
             gameState.birdCanFall = false;
