@@ -157,25 +157,113 @@
         background: #f1f1f1;
     }
 </style>
+
+<style>
+    /* Mobile Header Styles */
+    @media (max-width: 768px) {
+        header {
+            padding: 0.5rem 1rem;
+        }
+        
+        .logo span {
+            display: none;
+        }
+        
+        .nav-links {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: #1a237e;
+            flex-direction: column;
+            padding: 1rem;
+            min-width: 200px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .nav-links.active {
+            display: flex;
+        }
+        
+        .mobile-menu-btn {
+            display: block;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+    }
+
+    /* Mobile Footer Styles */
+    @media (max-width: 768px) {
+        footer {
+            padding: 0.5rem 1rem;
+        }
+        
+        .footer-content {
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .footer-links {
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .social-icons {
+            justify-content: center;
+            margin: 0.5rem 0;
+        }
+        
+        .copyright {
+            font-size: 0.8rem;
+        }
+    }
+
+    /* Audio Toggle Mobile Positioning */
+    @media (max-width: 768px) {
+        #audio-toggle {
+            left: 10px;
+            bottom: 10px;
+            width: 40px;
+            height: 40px;
+        }
+    }
+
+    /* New Mobile Menu Button */
+    .mobile-menu-btn {
+        display: none;
+    }
+
+    @media (max-width: 768px) {
+        .mobile-menu-btn {
+            display: block;
+        }
+    }
+</style>
     <!-- Rest of head content remains the same -->
 </head>
 <body style="background-color: mediumseagreen;">
 
 
        <!-- New Header -->
+       <!-- Modified Header -->
        <header>
         <a href="#" class="logo">
             <img src="https://iili.io/3A0Rz42.gif" alt="Flappy Bird Logo" class="logo-img">
             <span>Flaping Bird</span>
         </a>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
         <nav class="nav-links">
-            <a href="/home.html">Home</a>
+            <a href="/index.html">Home</a>
             <a href="/blogs.html">Blog</a>
             <a href="/leaderboard.html">Leaderboard</a>
             <a href="/aboutus.html">About Us</a>
             <a href="/contactus.html">Contact Us</a>
         </nav>
-    </header>
+     </header>
 
     <!-- Game Container (existing content remains same) -->
     <div id="termsandconditions-container">
@@ -268,23 +356,42 @@ You agree that the original English text shall prevail in the case of a dispute.
 
           <!-- New Footer -->
          <!-- New Footer -->
-<footer>
-    <div class="footer-content">
-        <div class="footer-links">
-            <a href="/privacypolicy.html">Privacy Policy</a>
-            <a href="/termsandconditions.html">Terms & Conditions</a>
-            <a href="/disclaimer.html">Disclaimer</a>
-        </div>
-        <div class="social-icons">
-            <a href="https://www.facebook.com/profile.php?id=61575193912266" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
-            <a href="https://www.youtube.com/@FlapingBird" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
-            <a href="https://www.instagram.com/flaping_bird/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
-        </div>
-        <div class="copyright">
-            &copy; 2025 Flaping Bird. All Rights Reserved.
-        </div>
-    </div>
-</footer>
+         <footer>
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="/privacypolicy.html">Privacy Policy</a>
+                    <a href="/termsandconditions.html">Terms & Conditions</a>
+                    <a href="/disclaimer.html">Disclaimer</a>
+                </div>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/profile.php?id=61575193912266" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.youtube.com/@FlapingBird" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.instagram.com/flaping_bird/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                </div>
+                <div class="copyright">
+                    &copy; 2025 Flaping Bird. All Rights Reserved.
+                </div>
+            </div>
+         </footer>
+        
+          <!-- Add mobile menu toggle script -->
+          <script>
+            function toggleMobileMenu() {
+                const navLinks = document.querySelector('.nav-links');
+                navLinks.classList.toggle('active');
+            }
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', (e) => {
+                const navLinks = document.querySelector('.nav-links');
+                const menuBtn = document.querySelector('.mobile-menu-btn');
+                
+                if (!menuBtn.contains(e.target) && !navLinks.contains(e.target)) {
+                    navLinks.classList.remove('active');
+                }
+            });
+         </script>
+        
 
     <!-- All existing JavaScript remains the same -->
     <!-- ... (All previous JavaScript content remains here) ... -->
