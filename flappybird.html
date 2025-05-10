@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flaping Bird</title>
+    <meta name="description" content="Flaping Bird Game:Master the Addictive Free Browser Game- start your flappy bird adventure now!">
+    <title>Flappy bird Pro</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
       <!-- Google Analytics -->
@@ -21,7 +22,7 @@
     </script> -->
 
     <!-- This code is used to prevent access view source code -->
-    <!-- <script>
+    <script>
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
         });
@@ -40,7 +41,7 @@
                 return false;
             }
         };
-    </script> -->
+    </script>
 
     <style>
         /* New Header Styles */
@@ -654,7 +655,6 @@
     }
     </style>
 
-
 <style>
     /* Mobile Header Styles */
     @media (max-width: 768px) {
@@ -740,6 +740,70 @@
         }
     }
 </style>
+<style>
+    /* Add landscape orientation styles */
+    @media (max-aspect-ratio: 1/1) and (max-width: 768px) {
+        body {
+            overflow: hidden;
+            touch-action: none;
+        }
+
+        header, footer {
+            display: none !important;
+        }
+
+        #game-container {
+            position: fixed !important;
+            top: 50% !important;
+            left: 50% !important;
+            width: 100vh !important;
+            height: 100vw !important;
+            transform: translate(-50%, -50%) rotate(90deg) !important;
+            max-width: none !important;
+            max-height: none !important;
+            z-index: 1001;
+        }
+
+        #audio-toggle {
+            left: 20px !important;
+            bottom: 20px !important;
+            z-index: 1002;
+        }
+
+        #start-screen button {
+            margin-top: 30vh !important;
+        }
+
+        #score-display {
+                /* right: auto !important;
+                left: 80px !important;
+                top: 20px !important;
+                font-size: 24px !important;
+                padding: 8px 15px !important;
+                min-width: 120px !important; */
+                
+
+                right: 20px !important;
+                left: auto !important;
+                top: 20px !important;
+                font-size: 30px !important;
+                padding: 10px 18px !important;
+                min-width: 140px !important;
+                /* transform: rotate(90deg) translate(0, -50%); */
+                transform-origin: right top;
+                z-index: 1002;
+
+
+
+        }
+
+        
+    }
+
+    /* Existing styles remain unchanged below */
+    /* ... (All previous CSS content remains here) ... */
+</style>
+
 
 
 </head>
@@ -749,8 +813,8 @@
 
     <!-- New Header -->
     <!-- New Header -->
-     <!-- Modified Header -->
-     <header>
+      <!-- Modified Header -->
+      <header>
         <a href="#" class="logo">
             <img src="https://iili.io/3A0Rz42.gif" alt="Flappy Bird Logo" class="logo-img">
             <span>Flaping Bird</span>
@@ -873,10 +937,29 @@
             &copy; 2025 Flaping Bird. All Rights Reserved.
         </div>
     </div>
-</footer>
-
- <!-- Add mobile menu toggle script -->
+ </footer>
  <script>
+    // Add orientation change listener
+    window.addEventListener('resize', () => {
+         resizeCanvas();
+         if (window.matchMedia("(max-aspect-ratio: 1/1) and (max-width: 768px)").matches) {
+             document.documentElement.style.setProperty('--vh', `${window.innerHeight}px`);
+         }
+     });
+
+     // Initialize viewport units
+     function setViewportUnits() {
+         let vh = window.innerHeight * 0.01;
+         document.documentElement.style.setProperty('--vh', `${vh}px`);
+     }
+     setViewportUnits();
+     window.addEventListener('resize', setViewportUnits);
+
+
+</script>
+
+  <!-- Add mobile menu toggle script -->
+  <script>
     function toggleMobileMenu() {
         const navLinks = document.querySelector('.nav-links');
         navLinks.classList.toggle('active');
@@ -891,7 +974,7 @@
             navLinks.classList.remove('active');
         }
     });
-</script>
+ </script>
 
 
 
@@ -1049,6 +1132,17 @@
         // Resize canvas
         function resizeCanvas() {
             const container = document.getElementById('game-container');
+            const isMobilePortrait = window.matchMedia("(max-aspect-ratio: 1/1) and (max-width: 768px)").matches;
+
+            if (isMobilePortrait) {
+                container.style.width = `${window.innerHeight}px`;
+                container.style.height = `${window.innerWidth}px`;
+            } else {
+                container.style.width = '800px';
+                container.style.height = '1000px';
+                container.style.maxWidth = '95%';
+                container.style.maxHeight = '95vh';
+            }
             canvas.width = container.clientWidth;
             canvas.height = container.clientHeight;
             gameState.bird.y = canvas.height * 0.65;
