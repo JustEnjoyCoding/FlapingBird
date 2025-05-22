@@ -2,9 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Flaping Bird Game:Master the Addictive Free Browser Game- start your flappy bird adventure now!">
-    <title>Flappy bird Pro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Flaping Bird</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
       <!-- Google Analytics -->
@@ -22,7 +21,7 @@
     </script> -->
 
     <!-- This code is used to prevent access view source code -->
-    <script>
+    <!-- <script>
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
         });
@@ -41,7 +40,7 @@
                 return false;
             }
         };
-    </script>
+    </script> -->
 
     <style>
         /* New Header Styles */
@@ -740,65 +739,111 @@
         }
     }
 </style>
+
+
 <style>
     /* Add landscape orientation styles */
-    @media (max-aspect-ratio: 1/1) and (max-width: 768px) {
-        body {
-            overflow: hidden;
-            touch-action: none;
-        }
+     @media (max-aspect-ratio: 1/1) and (max-width: 768px) {
+            body {
+                overflow: hidden;
+                touch-action: none;
+                background: mediumseagreen !important;
+            }
 
-        header, footer {
-            display: none !important;
-        }
+            header, footer {
+                display: none !important;
+            }
 
-        #game-container {
-            position: fixed !important;
-            top: 50% !important;
-            left: 50% !important;
-            width: 100vh !important;
-            height: 100vw !important;
-            transform: translate(-50%, -50%) rotate(90deg) !important;
-            max-width: none !important;
-            max-height: none !important;
-            z-index: 1001;
-        }
 
-        #audio-toggle {
-            left: 20px !important;
-            bottom: 20px !important;
-            z-index: 1002;
-        }
+             #start-screen {
+                transform: translate(-50%, -50%) rotate(-90deg) !important;
+                /* width: 100vw;
+                height: 100vh;
+                top: 50% !important;
+                left: 50% !important; */
+            }
 
-        #start-screen button {
-            margin-top: 30vh !important;
-        }
+            #start-screen button {
+                transform: rotate(90deg) !important;
+                /* margin-top: 0 !important;
+                position: relative;
+                top: -30vh;
+                left: -5%;
+                padding: 20px 40px !important;
+                font-size: 24px !important; */
+            }
 
-        #score-display {
-                /* right: auto !important;
-                left: 80px !important;
-                top: 20px !important;
-                font-size: 24px !important;
-                padding: 8px 15px !important;
-                min-width: 120px !important; */
-                
 
+
+
+
+
+
+
+            #game-container {
+                position: fixed !important;
+                top: 50% !important;
+                left: 50% !important;
+                width: 100vh !important;
+                height: 100vw !important;
+                transform: translate(-50%, -50%) rotate(90deg) !important;
+                max-width: none !important;
+                max-height: none !important;
+                z-index: 1001;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+           
+
+            #game-canvas {
+                width: 100% !important;
+                height: 100% !important;
+                border: none !important;
+                border-radius: 0 !important;
+            }
+
+            #audio-toggle {
+                left: 20px !important;
+                bottom: 20px !important;
+                z-index: 1002;
+                transform: rotate(-90deg);
+            }
+
+             /* #score-display {
                 right: 20px !important;
                 left: auto !important;
                 top: 20px !important;
-                font-size: 30px !important;
-                padding: 10px 18px !important;
-                min-width: 140px !important;
-                /* transform: rotate(90deg) translate(0, -50%); */
-                transform-origin: right top;
+                transform: rotate(-90deg) !important;
+                transform-origin: bottom right;
+                font-size: 24px !important;
+                padding: 8px 15px !important;
+                min-width: 120px !important;
+                margin: 0 !important;
+                position: fixed !important;
                 z-index: 1002;
+            } */
 
+             #score-display {
+                right: 20px !important;
+                left: auto !important;
+                top: 20px !important;
+                transform: translate(-50%, -50%) rotate(-3600deg) !important;
+                transform-origin: bottom right !important;
+                position: fixed !important;
+                z-index: 1002;
+                margin: 2 !important;
+                padding: 8px 20px !important;
+                font-size: 24px !important;
+                border: 2px solid white !important;
+                background: lightseagreen !important;
+            }
 
-
+            #start-screen button {
+                margin-top: 30vh !important;
+                transform: rotate(-90deg);
+            }
         }
-
-        
-    }
 
     /* Existing styles remain unchanged below */
     /* ... (All previous CSS content remains here) ... */
@@ -813,8 +858,7 @@
 
     <!-- New Header -->
     <!-- New Header -->
-      <!-- Modified Header -->
-      <header>
+    <header>
         <a href="#" class="logo">
             <img src="https://iili.io/3A0Rz42.gif" alt="Flappy Bird Logo" class="logo-img">
             <span>Flaping Bird</span>
@@ -827,7 +871,7 @@
             <a href="/aboutus.html">About Us</a>
             <a href="/contactus.html">Contact Us</a>
         </nav>
-     </header>
+    </header>
     
 
     <!-- Left Ad -->
@@ -920,8 +964,8 @@
     <!-- New Footer -->
          <!-- New Footer -->
          <!-- New Footer -->
-   <!-- Modified Footer -->
-   <footer>
+  <!-- Modified Footer -->
+  <footer>
     <div class="footer-content">
         <div class="footer-links">
             <a href="/privacypolicy.html">Privacy Policy</a>
@@ -937,29 +981,32 @@
             &copy; 2025 Flaping Bird. All Rights Reserved.
         </div>
     </div>
- </footer>
- <script>
-    // Add orientation change listener
-    window.addEventListener('resize', () => {
-         resizeCanvas();
-         if (window.matchMedia("(max-aspect-ratio: 1/1) and (max-width: 768px)").matches) {
-             document.documentElement.style.setProperty('--vh', `${window.innerHeight}px`);
-         }
-     });
+</footer>
 
-     // Initialize viewport units
-     function setViewportUnits() {
-         let vh = window.innerHeight * 0.01;
-         document.documentElement.style.setProperty('--vh', `${vh}px`);
-     }
-     setViewportUnits();
-     window.addEventListener('resize', setViewportUnits);
+
+
+<script>
+       // Add orientation change listener
+       window.addEventListener('resize', () => {
+            resizeCanvas();
+            if (window.matchMedia("(max-aspect-ratio: 1/1) and (max-width: 768px)").matches) {
+                document.documentElement.style.setProperty('--vh', `${window.innerHeight}px`);
+            }
+        });
+
+        // Initialize viewport units
+        function setViewportUnits() {
+            let vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+        setViewportUnits();
+        window.addEventListener('resize', setViewportUnits);
 
 
 </script>
 
-  <!-- Add mobile menu toggle script -->
-  <script>
+ <!-- Add mobile menu toggle script -->
+ <script>
     function toggleMobileMenu() {
         const navLinks = document.querySelector('.nav-links');
         navLinks.classList.toggle('active');
@@ -974,7 +1021,7 @@
             navLinks.classList.remove('active');
         }
     });
- </script>
+</script>
 
 
 
@@ -1130,11 +1177,11 @@
         }
 
         // Resize canvas
-        function resizeCanvas() {
+            function resizeCanvas() {
             const container = document.getElementById('game-container');
-            const isMobilePortrait = window.matchMedia("(max-aspect-ratio: 1/1) and (max-width: 768px)").matches;
+            const isMobileLandscape = window.matchMedia("(max-aspect-ratio: 1/1) and (max-width: 768px)").matches;
 
-            if (isMobilePortrait) {
+            if (isMobileLandscape) {
                 container.style.width = `${window.innerHeight}px`;
                 container.style.height = `${window.innerWidth}px`;
             } else {
@@ -1143,10 +1190,15 @@
                 container.style.maxWidth = '95%';
                 container.style.maxHeight = '95vh';
             }
+
             canvas.width = container.clientWidth;
             canvas.height = container.clientHeight;
             gameState.bird.y = canvas.height * 0.65;
         }
+
+
+     
+
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 

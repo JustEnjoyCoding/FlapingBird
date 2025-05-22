@@ -743,63 +743,64 @@
 
 <style>
     /* Add landscape orientation styles */
-    @media (max-aspect-ratio: 1/1) and (max-width: 768px) {
-        body {
-            overflow: hidden;
-            touch-action: none;
-        }
+     @media (max-aspect-ratio: 1/1) and (max-width: 768px) {
+            body {
+                overflow: hidden;
+                touch-action: none;
+                background: mediumseagreen !important;
+            }
 
-        header, footer {
-            display: none !important;
-        }
+            header, footer {
+                display: none !important;
+            }
 
-        #game-container {
-            position: fixed !important;
-            top: 50% !important;
-            left: 50% !important;
-            width: 100vh !important;
-            height: 100vw !important;
-            transform: translate(-50%, -50%) rotate(90deg) !important;
-            max-width: none !important;
-            max-height: none !important;
-            z-index: 1001;
-        }
+            #game-container {
+                position: fixed !important;
+                top: 50% !important;
+                left: 50% !important;
+                width: 100vh !important;
+                height: 100vw !important;
+                transform: translate(-50%, -50%) rotate(90deg) !important;
+                max-width: none !important;
+                max-height: none !important;
+                z-index: 1001;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
 
-        #audio-toggle {
-            left: 20px !important;
-            bottom: 20px !important;
-            z-index: 1002;
-        }
+            #game-canvas {
+                width: 100% !important;
+                height: 100% !important;
+                border: none !important;
+                border-radius: 0 !important;
+            }
 
-        #start-screen button {
-            margin-top: 30vh !important;
-        }
+            #audio-toggle {
+                left: 20px !important;
+                bottom: 20px !important;
+                z-index: 1002;
+                transform: rotate(-90deg);
+            }
 
-        #score-display {
-                /* right: auto !important;
-                left: 80px !important;
-                top: 20px !important;
-                font-size: 24px !important;
-                padding: 8px 15px !important;
-                min-width: 120px !important; */
-                
-
+             #score-display {
                 right: 20px !important;
                 left: auto !important;
                 top: 20px !important;
-                font-size: 30px !important;
-                padding: 10px 18px !important;
-                min-width: 140px !important;
-                /* transform: rotate(90deg) translate(0, -50%); */
-                transform-origin: right top;
+                transform: rotate(-90deg) !important;
+                transform-origin: bottom right;
+                font-size: 24px !important;
+                padding: 8px 15px !important;
+                min-width: 120px !important;
+                margin: 0 !important;
+                position: fixed !important;
                 z-index: 1002;
+            }
 
-
-
+            #start-screen button {
+                margin-top: 30vh !important;
+                transform: rotate(-90deg);
+            }
         }
-
-        
-    }
 
     /* Existing styles remain unchanged below */
     /* ... (All previous CSS content remains here) ... */
@@ -1133,11 +1134,11 @@
         }
 
         // Resize canvas
-        function resizeCanvas() {
+            function resizeCanvas() {
             const container = document.getElementById('game-container');
-            const isMobilePortrait = window.matchMedia("(max-aspect-ratio: 1/1) and (max-width: 768px)").matches;
+            const isMobileLandscape = window.matchMedia("(max-aspect-ratio: 1/1) and (max-width: 768px)").matches;
 
-            if (isMobilePortrait) {
+            if (isMobileLandscape) {
                 container.style.width = `${window.innerHeight}px`;
                 container.style.height = `${window.innerWidth}px`;
             } else {
@@ -1147,12 +1148,14 @@
                 container.style.maxHeight = '95vh';
             }
 
-
-
             canvas.width = container.clientWidth;
             canvas.height = container.clientHeight;
             gameState.bird.y = canvas.height * 0.65;
         }
+
+
+     
+
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
